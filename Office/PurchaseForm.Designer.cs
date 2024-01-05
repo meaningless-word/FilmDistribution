@@ -54,6 +54,8 @@
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.pnlPropertyHolder = new System.Windows.Forms.Panel();
+			this.btnRefreshFilmCompany = new System.Windows.Forms.Button();
+			this.cbxFilmCompany = new System.Windows.Forms.ComboBox();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.edtCost = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
@@ -61,18 +63,21 @@
 			this.btnRefreshProvider = new System.Windows.Forms.Button();
 			this.btnRefreshCategory = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
-			this.edtProduct = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
-			this.edtDirector = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.edtScreenwriter = new System.Windows.Forms.TextBox();
 			this.cbxCategory = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.edtYearOfRelease = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.edtTitle = new System.Windows.Forms.TextBox();
+			this.lstScreenwriters = new System.Windows.Forms.ListBox();
+			this.lstDirectors = new System.Windows.Forms.ListBox();
+			this.btnAddScreeneriter = new System.Windows.Forms.Button();
+			this.btnDelScreenwriter = new System.Windows.Forms.Button();
+			this.btnDelDirector = new System.Windows.Forms.Button();
+			this.btnAddDirector = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel5.SuspendLayout();
@@ -316,6 +321,14 @@
 			// pnlPropertyHolder
 			// 
 			this.pnlPropertyHolder.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.pnlPropertyHolder.Controls.Add(this.btnDelDirector);
+			this.pnlPropertyHolder.Controls.Add(this.btnAddDirector);
+			this.pnlPropertyHolder.Controls.Add(this.btnDelScreenwriter);
+			this.pnlPropertyHolder.Controls.Add(this.btnAddScreeneriter);
+			this.pnlPropertyHolder.Controls.Add(this.lstDirectors);
+			this.pnlPropertyHolder.Controls.Add(this.lstScreenwriters);
+			this.pnlPropertyHolder.Controls.Add(this.btnRefreshFilmCompany);
+			this.pnlPropertyHolder.Controls.Add(this.cbxFilmCompany);
 			this.pnlPropertyHolder.Controls.Add(this.btnSave);
 			this.pnlPropertyHolder.Controls.Add(this.edtCost);
 			this.pnlPropertyHolder.Controls.Add(this.label8);
@@ -323,12 +336,9 @@
 			this.pnlPropertyHolder.Controls.Add(this.btnRefreshProvider);
 			this.pnlPropertyHolder.Controls.Add(this.btnRefreshCategory);
 			this.pnlPropertyHolder.Controls.Add(this.label7);
-			this.pnlPropertyHolder.Controls.Add(this.edtProduct);
 			this.pnlPropertyHolder.Controls.Add(this.label6);
-			this.pnlPropertyHolder.Controls.Add(this.edtDirector);
 			this.pnlPropertyHolder.Controls.Add(this.label5);
 			this.pnlPropertyHolder.Controls.Add(this.label4);
-			this.pnlPropertyHolder.Controls.Add(this.edtScreenwriter);
 			this.pnlPropertyHolder.Controls.Add(this.cbxCategory);
 			this.pnlPropertyHolder.Controls.Add(this.label3);
 			this.pnlPropertyHolder.Controls.Add(this.edtYearOfRelease);
@@ -340,6 +350,26 @@
 			this.pnlPropertyHolder.Name = "pnlPropertyHolder";
 			this.pnlPropertyHolder.Size = new System.Drawing.Size(320, 422);
 			this.pnlPropertyHolder.TabIndex = 2;
+			// 
+			// btnRefreshFilmCompany
+			// 
+			this.btnRefreshFilmCompany.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRefreshFilmCompany.BackgroundImage")));
+			this.btnRefreshFilmCompany.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnRefreshFilmCompany.Location = new System.Drawing.Point(287, 247);
+			this.btnRefreshFilmCompany.Name = "btnRefreshFilmCompany";
+			this.btnRefreshFilmCompany.Size = new System.Drawing.Size(23, 23);
+			this.btnRefreshFilmCompany.TabIndex = 19;
+			this.btnRefreshFilmCompany.UseVisualStyleBackColor = true;
+			this.btnRefreshFilmCompany.Click += new System.EventHandler(this.btnRefreshFilmCompany_Click);
+			// 
+			// cbxFilmCompany
+			// 
+			this.cbxFilmCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbxFilmCompany.FormattingEnabled = true;
+			this.cbxFilmCompany.Location = new System.Drawing.Point(6, 249);
+			this.cbxFilmCompany.Name = "cbxFilmCompany";
+			this.cbxFilmCompany.Size = new System.Drawing.Size(280, 21);
+			this.cbxFilmCompany.TabIndex = 18;
 			// 
 			// btnSave
 			// 
@@ -407,13 +437,6 @@
 			this.label7.TabIndex = 12;
 			this.label7.Text = "поставщик";
 			// 
-			// edtProduct
-			// 
-			this.edtProduct.Location = new System.Drawing.Point(7, 249);
-			this.edtProduct.Name = "edtProduct";
-			this.edtProduct.Size = new System.Drawing.Size(303, 20);
-			this.edtProduct.TabIndex = 11;
-			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
@@ -423,39 +446,23 @@
 			this.label6.TabIndex = 10;
 			this.label6.Text = "компания производитель";
 			// 
-			// edtDirector
-			// 
-			this.edtDirector.Location = new System.Drawing.Point(6, 171);
-			this.edtDirector.Multiline = true;
-			this.edtDirector.Name = "edtDirector";
-			this.edtDirector.Size = new System.Drawing.Size(303, 59);
-			this.edtDirector.TabIndex = 9;
-			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Location = new System.Drawing.Point(4, 155);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(134, 13);
+			this.label5.Size = new System.Drawing.Size(65, 13);
 			this.label5.TabIndex = 8;
-			this.label5.Text = "режиссёр - постановщик";
+			this.label5.Text = "режиссёры";
 			// 
 			// label4
 			// 
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(3, 79);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(87, 13);
+			this.label4.Size = new System.Drawing.Size(95, 13);
 			this.label4.TabIndex = 7;
-			this.label4.Text = "автор сценария";
-			// 
-			// edtScreenwriter
-			// 
-			this.edtScreenwriter.Location = new System.Drawing.Point(6, 95);
-			this.edtScreenwriter.Multiline = true;
-			this.edtScreenwriter.Name = "edtScreenwriter";
-			this.edtScreenwriter.Size = new System.Drawing.Size(304, 57);
-			this.edtScreenwriter.TabIndex = 6;
+			this.label4.Text = "авторы сценария";
 			// 
 			// cbxCategory
 			// 
@@ -507,6 +514,66 @@
 			this.edtTitle.Size = new System.Drawing.Size(306, 20);
 			this.edtTitle.TabIndex = 0;
 			// 
+			// lstScreenwriters
+			// 
+			this.lstScreenwriters.FormattingEnabled = true;
+			this.lstScreenwriters.Location = new System.Drawing.Point(6, 96);
+			this.lstScreenwriters.Name = "lstScreenwriters";
+			this.lstScreenwriters.Size = new System.Drawing.Size(279, 56);
+			this.lstScreenwriters.TabIndex = 20;
+			// 
+			// lstDirectors
+			// 
+			this.lstDirectors.FormattingEnabled = true;
+			this.lstDirectors.Location = new System.Drawing.Point(7, 173);
+			this.lstDirectors.Name = "lstDirectors";
+			this.lstDirectors.Size = new System.Drawing.Size(278, 56);
+			this.lstDirectors.TabIndex = 21;
+			// 
+			// btnAddScreeneriter
+			// 
+			this.btnAddScreeneriter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddScreeneriter.BackgroundImage")));
+			this.btnAddScreeneriter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnAddScreeneriter.Location = new System.Drawing.Point(287, 96);
+			this.btnAddScreeneriter.Name = "btnAddScreeneriter";
+			this.btnAddScreeneriter.Size = new System.Drawing.Size(23, 23);
+			this.btnAddScreeneriter.TabIndex = 22;
+			this.btnAddScreeneriter.UseVisualStyleBackColor = true;
+			this.btnAddScreeneriter.Click += new System.EventHandler(this.btnAddScreeneriter_Click);
+			// 
+			// btnDelScreenwriter
+			// 
+			this.btnDelScreenwriter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelScreenwriter.BackgroundImage")));
+			this.btnDelScreenwriter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDelScreenwriter.Location = new System.Drawing.Point(287, 125);
+			this.btnDelScreenwriter.Name = "btnDelScreenwriter";
+			this.btnDelScreenwriter.Size = new System.Drawing.Size(23, 23);
+			this.btnDelScreenwriter.TabIndex = 23;
+			this.btnDelScreenwriter.UseVisualStyleBackColor = true;
+			this.btnDelScreenwriter.Click += new System.EventHandler(this.btnDelScreenwriter_Click);
+			// 
+			// btnDelDirector
+			// 
+			this.btnDelDirector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelDirector.BackgroundImage")));
+			this.btnDelDirector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDelDirector.Location = new System.Drawing.Point(287, 202);
+			this.btnDelDirector.Name = "btnDelDirector";
+			this.btnDelDirector.Size = new System.Drawing.Size(23, 23);
+			this.btnDelDirector.TabIndex = 25;
+			this.btnDelDirector.UseVisualStyleBackColor = true;
+			this.btnDelDirector.Click += new System.EventHandler(this.btnDelDirector_Click);
+			// 
+			// btnAddDirector
+			// 
+			this.btnAddDirector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddDirector.BackgroundImage")));
+			this.btnAddDirector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnAddDirector.Location = new System.Drawing.Point(287, 173);
+			this.btnAddDirector.Name = "btnAddDirector";
+			this.btnAddDirector.Size = new System.Drawing.Size(23, 23);
+			this.btnAddDirector.TabIndex = 24;
+			this.btnAddDirector.UseVisualStyleBackColor = true;
+			this.btnAddDirector.Click += new System.EventHandler(this.btnAddDirector_Click);
+			// 
 			// PurchaseForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -548,10 +615,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox edtYearOfRelease;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.TextBox edtScreenwriter;
-		private System.Windows.Forms.TextBox edtDirector;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.TextBox edtProduct;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.Button btnRefreshCategory;
@@ -578,5 +642,13 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Button btnClear;
 		private System.Windows.Forms.Button btnSet;
+		private System.Windows.Forms.Button btnRefreshFilmCompany;
+		private System.Windows.Forms.ComboBox cbxFilmCompany;
+		private System.Windows.Forms.ListBox lstScreenwriters;
+		private System.Windows.Forms.ListBox lstDirectors;
+		private System.Windows.Forms.Button btnDelScreenwriter;
+		private System.Windows.Forms.Button btnAddScreeneriter;
+		private System.Windows.Forms.Button btnDelDirector;
+		private System.Windows.Forms.Button btnAddDirector;
 	}
 }

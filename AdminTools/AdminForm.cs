@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Drawing;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace AdminTools
 		private string _connectionString;
 		private string _queryUsers;
 		private string _queryPermissions;
+		private string _queryMissPermiss;
 		private DataSet _dataSet;
 		private BindingSource _bsUsers;
 		private BindingSource _bsPermissions;
@@ -28,6 +30,7 @@ namespace AdminTools
 				" FROM Permissions" +
 				" INNER JOIN MenuItems ON MenuItems.id = Permissions.idMenuItem" +
 				" ORDER BY compose";
+			_queryMissPermiss = "SELECT id FROM MenuItems WHERE id NOT IN (SELECT DISTINCT idMenuItem FROM Permissions)";
 
 			_dataSet = new DataSet();
 			_bsUsers = new BindingSource();
@@ -114,25 +117,35 @@ namespace AdminTools
 		{
 			using (OleDbConnection connection = new OleDbConnection(_connectionString))
 			{
-				connection.Open();
-				int iRow = -1;
+				int iFirstRow = -1;
+				if (dgvUsers.Rows.Count > 0 && dgvUsers.FirstDisplayedCell != null) { iFirstRow = dgvUsers.FirstDisplayedCell.RowIndex; }
+				Point cell = dgvUsers.CurrentCellAddress;
 
-				if (dgvUsers.Rows.Count > 0) { iRow = dgvUsers.CurrentRow.Index; }
+				connection.Open();
 				if (_dataSet.Relations.Contains("relation")) { _dataSet.Relations.Remove("relation"); }
 				if (_dataSet.Tables.Contains("Permissions")) { _dataSet.Tables["Permissions"].Clear(); }
+				if (_dataSet.Tables.Contains("MissPermiss")) { _dataSet.Tables["MissPermiss"].Clear(); }
 				if (_dataSet.Tables.Contains("Users")) { _dataSet.Tables["Users"].Clear(); }
 				btnCreateAccess.DataBindings.Clear();
 
-				OleDbDataAdapter dataAdapter = new OleDbDataAdapter(_queryUsers, connection);
-				dataAdapter.Fill(_dataSet, "Users");
-				dataAdapter = new OleDbDataAdapter(_queryPermissions, connection);
-				dataAdapter.Fill(_dataSet, "Permissions");
+				OleDbDataAdapter da = new OleDbDataAdapter();
+				da.SelectCommand = new OleDbCommand(_queryUsers, connection);
+				da.Fill(_dataSet, "Users");
+				da.SelectCommand = new OleDbCommand(_queryPermissions, connection);
+				da.Fill(_dataSet, "Permissions");
+				da.SelectCommand = new OleDbCommand(_queryMissPermiss, connection);
+				da.Fill(_dataSet, "MissPermiss");
+
 				_dataSet.Relations.Add("relation", _dataSet.Tables["Users"].Columns["id"], _dataSet.Tables["Permissions"].Columns["idUser"]);
 				_bsUsers.DataSource = _dataSet;
 				_bsUsers.DataMember = "Users";
 				_bsPermissions.DataSource = _bsUsers;
 				_bsPermissions.DataMember = "relation";
-				if (dgvUsers.Rows.Count > 0 && iRow > -1) { dgvUsers.Rows[iRow].Selected = true; }
+
+				if (iFirstRow > -1 && iFirstRow < dgvUsers.Rows.Count) { dgvUsers.FirstDisplayedScrollingRowIndex = iFirstRow; }
+				dgvUsers.MultiSelect = false;
+				if (cell.X > -1) { dgvUsers.Rows[cell.Y].Cells[cell.X].Selected = true; }
+				dgvUsers.MultiSelect = true;
 			}
 		}
 
@@ -165,19 +178,16 @@ namespace AdminTools
 			{
 				connection.Open();
 				string queryUpdate = "INSERT INTO Permissions (idMenuItem, idUser, R, W, E, D)" +
-				" SELECT [id], @idUer, 0, 0, 0, 0" +
-				" FROM MenuItems";
+				" SELECT [MenuItems.id], @idUser, 0, 0, 0, 0" +
+				" FROM MenuItems" +
+				" LEFT JOIN Permissions ON (Permissions.idMenuItem = MenuItems.id AND Permissions.idUser = @idUser)" +
+				" WHERE Permissions.id IS NULL";
 				OleDbCommand cmd = new OleDbCommand(queryUpdate, connection);
 				cmd.Parameters.Add("@idUser", OleDbType.Integer).Value = dgvUsers.CurrentRow.Cells[0].Value;
 				cmd.ExecuteNonQuery();
 				connection.Close();
 				ReloadData();
 			}
-		}
-
-		private void dgvPermissions_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-		{
-			btnCreateAccess.Enabled = dgvPermissions.Rows.Count == 0;
 		}
 
 		private void btnSave_Click(object sender, EventArgs e)

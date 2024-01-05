@@ -128,7 +128,6 @@
 			this.dgvPermissions.Name = "dgvPermissions";
 			this.dgvPermissions.Size = new System.Drawing.Size(319, 363);
 			this.dgvPermissions.TabIndex = 2;
-			this.dgvPermissions.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvPermissions_DataBindingComplete);
 			// 
 			// label1
 			// 

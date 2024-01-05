@@ -40,11 +40,11 @@
 			this.btnShow = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel2 = new System.Windows.Forms.Panel();
+			this.btnDelete = new System.Windows.Forms.Button();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.btnCreate = new System.Windows.Forms.Button();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.dgvLeasing = new System.Windows.Forms.DataGridView();
-			this.btnDelete = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.pnlPeriod.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -177,6 +177,16 @@
 			this.panel2.Size = new System.Drawing.Size(971, 40);
 			this.panel2.TabIndex = 1;
 			// 
+			// btnDelete
+			// 
+			this.btnDelete.Location = new System.Drawing.Point(305, 6);
+			this.btnDelete.Name = "btnDelete";
+			this.btnDelete.Size = new System.Drawing.Size(75, 23);
+			this.btnDelete.TabIndex = 2;
+			this.btnDelete.Text = "Удалить";
+			this.btnDelete.UseVisualStyleBackColor = true;
+			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+			// 
 			// btnClose
 			// 
 			this.btnClose.Location = new System.Drawing.Point(159, 6);
@@ -217,16 +227,6 @@
 			this.dgvLeasing.Size = new System.Drawing.Size(971, 373);
 			this.dgvLeasing.TabIndex = 0;
 			this.dgvLeasing.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvLeasing_RowStateChanged);
-			// 
-			// btnDelete
-			// 
-			this.btnDelete.Location = new System.Drawing.Point(305, 6);
-			this.btnDelete.Name = "btnDelete";
-			this.btnDelete.Size = new System.Drawing.Size(75, 23);
-			this.btnDelete.TabIndex = 2;
-			this.btnDelete.Text = "Удалить";
-			this.btnDelete.UseVisualStyleBackColor = true;
-			this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
 			// 
 			// LeaseForm
 			// 

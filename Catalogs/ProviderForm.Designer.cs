@@ -59,6 +59,7 @@
 			this.dgvObject.Name = "dgvObject";
 			this.dgvObject.Size = new System.Drawing.Size(790, 414);
 			this.dgvObject.TabIndex = 0;
+			this.dgvObject.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObject_CellContentClick);
 			this.dgvObject.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObject_CellEndEdit);
 			this.dgvObject.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvObject_CellValidating);
 			// 
