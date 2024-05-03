@@ -54,6 +54,12 @@
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.pnlPropertyHolder = new System.Windows.Forms.Panel();
+			this.btnDelDirector = new System.Windows.Forms.Button();
+			this.btnAddDirector = new System.Windows.Forms.Button();
+			this.btnDelScreenwriter = new System.Windows.Forms.Button();
+			this.btnAddScreeneriter = new System.Windows.Forms.Button();
+			this.lstDirectors = new System.Windows.Forms.ListBox();
+			this.lstScreenwriters = new System.Windows.Forms.ListBox();
 			this.btnRefreshFilmCompany = new System.Windows.Forms.Button();
 			this.cbxFilmCompany = new System.Windows.Forms.ComboBox();
 			this.btnSave = new System.Windows.Forms.Button();
@@ -61,23 +67,18 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.cbxProvider = new System.Windows.Forms.ComboBox();
 			this.btnRefreshProvider = new System.Windows.Forms.Button();
-			this.btnRefreshCategory = new System.Windows.Forms.Button();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.cbxCategory = new System.Windows.Forms.ComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.edtYearOfRelease = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.edtTitle = new System.Windows.Forms.TextBox();
-			this.lstScreenwriters = new System.Windows.Forms.ListBox();
-			this.lstDirectors = new System.Windows.Forms.ListBox();
-			this.btnAddScreeneriter = new System.Windows.Forms.Button();
-			this.btnDelScreenwriter = new System.Windows.Forms.Button();
-			this.btnDelDirector = new System.Windows.Forms.Button();
-			this.btnAddDirector = new System.Windows.Forms.Button();
+			this.lstCategories = new System.Windows.Forms.ListBox();
+			this.btnDelCategory = new System.Windows.Forms.Button();
+			this.btnAddCategory = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel5.SuspendLayout();
@@ -100,7 +101,7 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(741, 28);
+			this.panel1.Size = new System.Drawing.Size(729, 28);
 			this.panel1.TabIndex = 0;
 			// 
 			// btnClear
@@ -167,7 +168,7 @@
 			this.panel2.Controls.Add(this.panel3);
 			this.panel2.Location = new System.Drawing.Point(0, 28);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(421, 422);
+			this.panel2.Size = new System.Drawing.Size(409, 422);
 			this.panel2.TabIndex = 1;
 			// 
 			// panel5
@@ -178,7 +179,7 @@
 			this.panel5.Controls.Add(this.dgvFilms);
 			this.panel5.Location = new System.Drawing.Point(0, 0);
 			this.panel5.Name = "panel5";
-			this.panel5.Size = new System.Drawing.Size(417, 388);
+			this.panel5.Size = new System.Drawing.Size(405, 388);
 			this.panel5.TabIndex = 1;
 			// 
 			// dgvFilms
@@ -190,7 +191,7 @@
 			this.dgvFilms.Location = new System.Drawing.Point(0, 0);
 			this.dgvFilms.Name = "dgvFilms";
 			this.dgvFilms.ReadOnly = true;
-			this.dgvFilms.Size = new System.Drawing.Size(417, 388);
+			this.dgvFilms.Size = new System.Drawing.Size(405, 388);
 			this.dgvFilms.TabIndex = 0;
 			// 
 			// panel3
@@ -200,7 +201,7 @@
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel3.Location = new System.Drawing.Point(0, 392);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(417, 26);
+			this.panel3.Size = new System.Drawing.Size(405, 26);
 			this.panel3.TabIndex = 0;
 			// 
 			// bnFilms
@@ -228,7 +229,7 @@
 			this.bnFilms.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
 			this.bnFilms.Name = "bnFilms";
 			this.bnFilms.PositionItem = this.bindingNavigatorPositionItem;
-			this.bnFilms.Size = new System.Drawing.Size(413, 25);
+			this.bnFilms.Size = new System.Drawing.Size(401, 25);
 			this.bnFilms.TabIndex = 0;
 			this.bnFilms.Text = "bindingNavigator1";
 			// 
@@ -321,6 +322,9 @@
 			// pnlPropertyHolder
 			// 
 			this.pnlPropertyHolder.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.pnlPropertyHolder.Controls.Add(this.btnDelCategory);
+			this.pnlPropertyHolder.Controls.Add(this.btnAddCategory);
+			this.pnlPropertyHolder.Controls.Add(this.lstCategories);
 			this.pnlPropertyHolder.Controls.Add(this.btnDelDirector);
 			this.pnlPropertyHolder.Controls.Add(this.btnAddDirector);
 			this.pnlPropertyHolder.Controls.Add(this.btnDelScreenwriter);
@@ -334,28 +338,86 @@
 			this.pnlPropertyHolder.Controls.Add(this.label8);
 			this.pnlPropertyHolder.Controls.Add(this.cbxProvider);
 			this.pnlPropertyHolder.Controls.Add(this.btnRefreshProvider);
-			this.pnlPropertyHolder.Controls.Add(this.btnRefreshCategory);
 			this.pnlPropertyHolder.Controls.Add(this.label7);
 			this.pnlPropertyHolder.Controls.Add(this.label6);
 			this.pnlPropertyHolder.Controls.Add(this.label5);
 			this.pnlPropertyHolder.Controls.Add(this.label4);
-			this.pnlPropertyHolder.Controls.Add(this.cbxCategory);
 			this.pnlPropertyHolder.Controls.Add(this.label3);
 			this.pnlPropertyHolder.Controls.Add(this.edtYearOfRelease);
 			this.pnlPropertyHolder.Controls.Add(this.label2);
 			this.pnlPropertyHolder.Controls.Add(this.label1);
 			this.pnlPropertyHolder.Controls.Add(this.edtTitle);
 			this.pnlPropertyHolder.Dock = System.Windows.Forms.DockStyle.Right;
-			this.pnlPropertyHolder.Location = new System.Drawing.Point(421, 28);
+			this.pnlPropertyHolder.Location = new System.Drawing.Point(409, 28);
 			this.pnlPropertyHolder.Name = "pnlPropertyHolder";
 			this.pnlPropertyHolder.Size = new System.Drawing.Size(320, 422);
 			this.pnlPropertyHolder.TabIndex = 2;
+			// 
+			// btnDelDirector
+			// 
+			this.btnDelDirector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelDirector.BackgroundImage")));
+			this.btnDelDirector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDelDirector.Location = new System.Drawing.Point(286, 228);
+			this.btnDelDirector.Name = "btnDelDirector";
+			this.btnDelDirector.Size = new System.Drawing.Size(23, 23);
+			this.btnDelDirector.TabIndex = 25;
+			this.btnDelDirector.UseVisualStyleBackColor = true;
+			this.btnDelDirector.Click += new System.EventHandler(this.btnDelDirector_Click);
+			// 
+			// btnAddDirector
+			// 
+			this.btnAddDirector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddDirector.BackgroundImage")));
+			this.btnAddDirector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnAddDirector.Location = new System.Drawing.Point(286, 199);
+			this.btnAddDirector.Name = "btnAddDirector";
+			this.btnAddDirector.Size = new System.Drawing.Size(23, 23);
+			this.btnAddDirector.TabIndex = 24;
+			this.btnAddDirector.UseVisualStyleBackColor = true;
+			this.btnAddDirector.Click += new System.EventHandler(this.btnAddDirector_Click);
+			// 
+			// btnDelScreenwriter
+			// 
+			this.btnDelScreenwriter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelScreenwriter.BackgroundImage")));
+			this.btnDelScreenwriter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDelScreenwriter.Location = new System.Drawing.Point(286, 151);
+			this.btnDelScreenwriter.Name = "btnDelScreenwriter";
+			this.btnDelScreenwriter.Size = new System.Drawing.Size(23, 23);
+			this.btnDelScreenwriter.TabIndex = 23;
+			this.btnDelScreenwriter.UseVisualStyleBackColor = true;
+			this.btnDelScreenwriter.Click += new System.EventHandler(this.btnDelScreenwriter_Click);
+			// 
+			// btnAddScreeneriter
+			// 
+			this.btnAddScreeneriter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddScreeneriter.BackgroundImage")));
+			this.btnAddScreeneriter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnAddScreeneriter.Location = new System.Drawing.Point(286, 122);
+			this.btnAddScreeneriter.Name = "btnAddScreeneriter";
+			this.btnAddScreeneriter.Size = new System.Drawing.Size(23, 23);
+			this.btnAddScreeneriter.TabIndex = 22;
+			this.btnAddScreeneriter.UseVisualStyleBackColor = true;
+			this.btnAddScreeneriter.Click += new System.EventHandler(this.btnAddScreeneriter_Click);
+			// 
+			// lstDirectors
+			// 
+			this.lstDirectors.FormattingEnabled = true;
+			this.lstDirectors.Location = new System.Drawing.Point(6, 199);
+			this.lstDirectors.Name = "lstDirectors";
+			this.lstDirectors.Size = new System.Drawing.Size(278, 56);
+			this.lstDirectors.TabIndex = 21;
+			// 
+			// lstScreenwriters
+			// 
+			this.lstScreenwriters.FormattingEnabled = true;
+			this.lstScreenwriters.Location = new System.Drawing.Point(5, 122);
+			this.lstScreenwriters.Name = "lstScreenwriters";
+			this.lstScreenwriters.Size = new System.Drawing.Size(279, 56);
+			this.lstScreenwriters.TabIndex = 20;
 			// 
 			// btnRefreshFilmCompany
 			// 
 			this.btnRefreshFilmCompany.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRefreshFilmCompany.BackgroundImage")));
 			this.btnRefreshFilmCompany.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnRefreshFilmCompany.Location = new System.Drawing.Point(287, 247);
+			this.btnRefreshFilmCompany.Location = new System.Drawing.Point(286, 273);
 			this.btnRefreshFilmCompany.Name = "btnRefreshFilmCompany";
 			this.btnRefreshFilmCompany.Size = new System.Drawing.Size(23, 23);
 			this.btnRefreshFilmCompany.TabIndex = 19;
@@ -366,14 +428,14 @@
 			// 
 			this.cbxFilmCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbxFilmCompany.FormattingEnabled = true;
-			this.cbxFilmCompany.Location = new System.Drawing.Point(6, 249);
+			this.cbxFilmCompany.Location = new System.Drawing.Point(5, 275);
 			this.cbxFilmCompany.Name = "cbxFilmCompany";
 			this.cbxFilmCompany.Size = new System.Drawing.Size(280, 21);
 			this.cbxFilmCompany.TabIndex = 18;
 			// 
 			// btnSave
 			// 
-			this.btnSave.Location = new System.Drawing.Point(234, 365);
+			this.btnSave.Location = new System.Drawing.Point(233, 391);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
 			this.btnSave.TabIndex = 17;
@@ -383,7 +445,7 @@
 			// 
 			// edtCost
 			// 
-			this.edtCost.Location = new System.Drawing.Point(6, 328);
+			this.edtCost.Location = new System.Drawing.Point(5, 354);
 			this.edtCost.Name = "edtCost";
 			this.edtCost.Size = new System.Drawing.Size(100, 20);
 			this.edtCost.TabIndex = 16;
@@ -391,7 +453,7 @@
 			// label8
 			// 
 			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(7, 312);
+			this.label8.Location = new System.Drawing.Point(6, 338);
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(61, 13);
 			this.label8.TabIndex = 15;
@@ -401,7 +463,7 @@
 			// 
 			this.cbxProvider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbxProvider.FormattingEnabled = true;
-			this.cbxProvider.Location = new System.Drawing.Point(7, 288);
+			this.cbxProvider.Location = new System.Drawing.Point(6, 314);
 			this.cbxProvider.Name = "cbxProvider";
 			this.cbxProvider.Size = new System.Drawing.Size(279, 21);
 			this.cbxProvider.TabIndex = 14;
@@ -410,28 +472,17 @@
 			// 
 			this.btnRefreshProvider.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRefreshProvider.BackgroundImage")));
 			this.btnRefreshProvider.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnRefreshProvider.Location = new System.Drawing.Point(287, 286);
+			this.btnRefreshProvider.Location = new System.Drawing.Point(286, 312);
 			this.btnRefreshProvider.Name = "btnRefreshProvider";
 			this.btnRefreshProvider.Size = new System.Drawing.Size(23, 23);
 			this.btnRefreshProvider.TabIndex = 13;
 			this.btnRefreshProvider.UseVisualStyleBackColor = true;
 			this.btnRefreshProvider.Click += new System.EventHandler(this.btnRefreshProvider_Click);
 			// 
-			// btnRefreshCategory
-			// 
-			this.btnRefreshCategory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRefreshCategory.BackgroundImage")));
-			this.btnRefreshCategory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnRefreshCategory.Location = new System.Drawing.Point(287, 53);
-			this.btnRefreshCategory.Name = "btnRefreshCategory";
-			this.btnRefreshCategory.Size = new System.Drawing.Size(23, 23);
-			this.btnRefreshCategory.TabIndex = 13;
-			this.btnRefreshCategory.UseVisualStyleBackColor = true;
-			this.btnRefreshCategory.Click += new System.EventHandler(this.btnRefreshCategory_Click);
-			// 
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(5, 272);
+			this.label7.Location = new System.Drawing.Point(4, 298);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(63, 13);
 			this.label7.TabIndex = 12;
@@ -440,7 +491,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(5, 233);
+			this.label6.Location = new System.Drawing.Point(4, 259);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(137, 13);
 			this.label6.TabIndex = 10;
@@ -449,7 +500,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(4, 155);
+			this.label5.Location = new System.Drawing.Point(3, 181);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(65, 13);
 			this.label5.TabIndex = 8;
@@ -458,20 +509,11 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(3, 79);
+			this.label4.Location = new System.Drawing.Point(2, 106);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(95, 13);
 			this.label4.TabIndex = 7;
 			this.label4.Text = "авторы сценария";
-			// 
-			// cbxCategory
-			// 
-			this.cbxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbxCategory.FormattingEnabled = true;
-			this.cbxCategory.Location = new System.Drawing.Point(124, 55);
-			this.cbxCategory.Name = "cbxCategory";
-			this.cbxCategory.Size = new System.Drawing.Size(161, 21);
-			this.cbxCategory.TabIndex = 5;
 			// 
 			// label3
 			// 
@@ -484,7 +526,7 @@
 			// 
 			// edtYearOfRelease
 			// 
-			this.edtYearOfRelease.Location = new System.Drawing.Point(6, 56);
+			this.edtYearOfRelease.Location = new System.Drawing.Point(5, 56);
 			this.edtYearOfRelease.Name = "edtYearOfRelease";
 			this.edtYearOfRelease.Size = new System.Drawing.Size(50, 20);
 			this.edtYearOfRelease.TabIndex = 3;
@@ -514,71 +556,41 @@
 			this.edtTitle.Size = new System.Drawing.Size(306, 20);
 			this.edtTitle.TabIndex = 0;
 			// 
-			// lstScreenwriters
+			// lstCategories
 			// 
-			this.lstScreenwriters.FormattingEnabled = true;
-			this.lstScreenwriters.Location = new System.Drawing.Point(6, 96);
-			this.lstScreenwriters.Name = "lstScreenwriters";
-			this.lstScreenwriters.Size = new System.Drawing.Size(279, 56);
-			this.lstScreenwriters.TabIndex = 20;
+			this.lstCategories.FormattingEnabled = true;
+			this.lstCategories.Location = new System.Drawing.Point(124, 58);
+			this.lstCategories.Name = "lstCategories";
+			this.lstCategories.Size = new System.Drawing.Size(159, 56);
+			this.lstCategories.TabIndex = 26;
 			// 
-			// lstDirectors
+			// btnDelCategory
 			// 
-			this.lstDirectors.FormattingEnabled = true;
-			this.lstDirectors.Location = new System.Drawing.Point(7, 173);
-			this.lstDirectors.Name = "lstDirectors";
-			this.lstDirectors.Size = new System.Drawing.Size(278, 56);
-			this.lstDirectors.TabIndex = 21;
+			this.btnDelCategory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelCategory.BackgroundImage")));
+			this.btnDelCategory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnDelCategory.Location = new System.Drawing.Point(286, 85);
+			this.btnDelCategory.Name = "btnDelCategory";
+			this.btnDelCategory.Size = new System.Drawing.Size(23, 23);
+			this.btnDelCategory.TabIndex = 28;
+			this.btnDelCategory.UseVisualStyleBackColor = true;
+			this.btnDelCategory.Click += new System.EventHandler(this.btnDelCategory_Click);
 			// 
-			// btnAddScreeneriter
+			// btnAddCategory
 			// 
-			this.btnAddScreeneriter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddScreeneriter.BackgroundImage")));
-			this.btnAddScreeneriter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnAddScreeneriter.Location = new System.Drawing.Point(287, 96);
-			this.btnAddScreeneriter.Name = "btnAddScreeneriter";
-			this.btnAddScreeneriter.Size = new System.Drawing.Size(23, 23);
-			this.btnAddScreeneriter.TabIndex = 22;
-			this.btnAddScreeneriter.UseVisualStyleBackColor = true;
-			this.btnAddScreeneriter.Click += new System.EventHandler(this.btnAddScreeneriter_Click);
-			// 
-			// btnDelScreenwriter
-			// 
-			this.btnDelScreenwriter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelScreenwriter.BackgroundImage")));
-			this.btnDelScreenwriter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnDelScreenwriter.Location = new System.Drawing.Point(287, 125);
-			this.btnDelScreenwriter.Name = "btnDelScreenwriter";
-			this.btnDelScreenwriter.Size = new System.Drawing.Size(23, 23);
-			this.btnDelScreenwriter.TabIndex = 23;
-			this.btnDelScreenwriter.UseVisualStyleBackColor = true;
-			this.btnDelScreenwriter.Click += new System.EventHandler(this.btnDelScreenwriter_Click);
-			// 
-			// btnDelDirector
-			// 
-			this.btnDelDirector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnDelDirector.BackgroundImage")));
-			this.btnDelDirector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnDelDirector.Location = new System.Drawing.Point(287, 202);
-			this.btnDelDirector.Name = "btnDelDirector";
-			this.btnDelDirector.Size = new System.Drawing.Size(23, 23);
-			this.btnDelDirector.TabIndex = 25;
-			this.btnDelDirector.UseVisualStyleBackColor = true;
-			this.btnDelDirector.Click += new System.EventHandler(this.btnDelDirector_Click);
-			// 
-			// btnAddDirector
-			// 
-			this.btnAddDirector.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddDirector.BackgroundImage")));
-			this.btnAddDirector.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnAddDirector.Location = new System.Drawing.Point(287, 173);
-			this.btnAddDirector.Name = "btnAddDirector";
-			this.btnAddDirector.Size = new System.Drawing.Size(23, 23);
-			this.btnAddDirector.TabIndex = 24;
-			this.btnAddDirector.UseVisualStyleBackColor = true;
-			this.btnAddDirector.Click += new System.EventHandler(this.btnAddDirector_Click);
+			this.btnAddCategory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddCategory.BackgroundImage")));
+			this.btnAddCategory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.btnAddCategory.Location = new System.Drawing.Point(286, 56);
+			this.btnAddCategory.Name = "btnAddCategory";
+			this.btnAddCategory.Size = new System.Drawing.Size(23, 23);
+			this.btnAddCategory.TabIndex = 27;
+			this.btnAddCategory.UseVisualStyleBackColor = true;
+			this.btnAddCategory.Click += new System.EventHandler(this.btnAddCategory_Click);
 			// 
 			// PurchaseForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(741, 450);
+			this.ClientSize = new System.Drawing.Size(729, 450);
 			this.Controls.Add(this.pnlPropertyHolder);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel1);
@@ -611,14 +623,12 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox edtTitle;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.ComboBox cbxCategory;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox edtYearOfRelease;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.Button btnRefreshCategory;
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.ComboBox cbxProvider;
 		private System.Windows.Forms.Button btnRefreshProvider;
@@ -650,5 +660,8 @@
 		private System.Windows.Forms.Button btnAddScreeneriter;
 		private System.Windows.Forms.Button btnDelDirector;
 		private System.Windows.Forms.Button btnAddDirector;
+		private System.Windows.Forms.Button btnDelCategory;
+		private System.Windows.Forms.Button btnAddCategory;
+		private System.Windows.Forms.ListBox lstCategories;
 	}
 }

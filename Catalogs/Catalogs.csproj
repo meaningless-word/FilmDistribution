@@ -71,11 +71,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressForm.cs">
+    <Compile Include="AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddressForm.Designer.cs">
-      <DependentUpon>AddressForm.cs</DependentUpon>
+    <Compile Include="AccountForm.Designer.cs">
+      <DependentUpon>AccountForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StreetForm.cs">
       <SubType>Form</SubType>
@@ -134,8 +134,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AddressForm.resx">
-      <DependentUpon>AddressForm.cs</DependentUpon>
+    <EmbeddedResource Include="AccountForm.resx">
+      <DependentUpon>AccountForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreetForm.resx">
       <DependentUpon>StreetForm.cs</DependentUpon>

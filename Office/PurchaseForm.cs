@@ -24,6 +24,7 @@ namespace Office
 		private BindingSource _bsFilms;
 		private BindingSource _bsScreenwriters;
 		private BindingSource _bsDirectors;
+		private BindingSource _bsCategories;
 		private Dictionary<string, string> _args;
 
 		public PurchaseForm(string args)
@@ -52,13 +53,10 @@ namespace Office
 			_bsFilms = new BindingSource();
 			_bsScreenwriters = new BindingSource();
 			_bsDirectors = new BindingSource();
+			_bsCategories = new BindingSource();
 
 			GenerateScripts();
 			ReloadData();
-
-			cbxCategory.DataSource = _dataSet.Tables["Category"];
-			cbxCategory.ValueMember = "id";
-			cbxCategory.DisplayMember = "title";
 
 			cbxProvider.DataSource = _dataSet.Tables["Provider"];
 			cbxProvider.ValueMember = "id";
@@ -68,13 +66,17 @@ namespace Office
 			cbxFilmCompany.ValueMember = "id";
 			cbxFilmCompany.DisplayMember = "title";
 
+			lstCategories.DataSource = _bsCategories;
+			lstCategories.ValueMember = "id";
+			lstCategories.DisplayMember = "title";
+
 			lstScreenwriters.DataSource = _bsScreenwriters;
-			lstScreenwriters.DisplayMember = "fullName";
 			lstScreenwriters.ValueMember = "id";
+			lstScreenwriters.DisplayMember = "fullName";
 
 			lstDirectors.DataSource = _bsDirectors;
-			lstDirectors.DisplayMember = "fullName";
 			lstDirectors.ValueMember = "id";
+			lstDirectors.DisplayMember = "fullName";
 
 			dgvFilms.AllowUserToAddRows = false;
 			dgvFilms.AllowUserToDeleteRows = false;
@@ -112,7 +114,6 @@ namespace Office
 
 			edtTitle.DataBindings.Add(new Binding("Text", _bsFilms, "title", false, DataSourceUpdateMode.OnPropertyChanged));
 			edtYearOfRelease.DataBindings.Add(new Binding("Text", _bsFilms, "year_of_release", false, DataSourceUpdateMode.OnPropertyChanged));
-			cbxCategory.DataBindings.Add(new Binding("SelectedValue", _bsFilms, "idCategory", false, DataSourceUpdateMode.OnPropertyChanged));
 			cbxFilmCompany.DataBindings.Add(new Binding("SelectedValue", _bsFilms, "idFilmCompany", false, DataSourceUpdateMode.OnPropertyChanged));
 			cbxProvider.DataBindings.Add(new Binding("SelectedValue", _bsFilms, "idProvider", false, DataSourceUpdateMode.OnPropertyChanged));
 			edtCost.DataBindings.Add(new Binding("Text", _bsFilms, "cost", false, DataSourceUpdateMode.OnPropertyChanged));
@@ -120,12 +121,16 @@ namespace Office
 
 		private void GenerateScripts(string queryFilmsWhere = "")
 		{
-			_queryFilms = $"SELECT Films.id, Films.title, Films.idCategory, Films.idFilmCompany, Films.year_of_release, Films.idProvider, Films.cost" +
+			_queryFilms = $"SELECT Films.id, Films.title, Films.idFilmCompany, Films.year_of_release, Films.idProvider, Films.cost" +
 				" FROM Films " +
 				" WHERE 1 = 1" +
 				$" {queryFilmsWhere}" +
 				" ORDER BY Films.title";
-			_queryCategories = "SELECT id, title FROM Categories ORDER BY title";
+			_queryCategories = "SELECT FilmGenres.id, idFilm, idCategory, Categories.title" +
+				" FROM FilmGenres" +
+				" INNER JOIN Categories ON Categories.id = FilmGenres.idCategory" +
+				$" WHERE idFilm IN (SELECT id FROM Films WHERE 1 = 1 {queryFilmsWhere})" +
+				" ORDER BY Categories.title";
 			_queryProviders = "SELECT id, title FROM Providers ORDER BY title";
 			_queryFilmCompanies = "SELECT id, title FROM FilmCompanies ORDER BY title";
 			_queryScreenwriters = "SELECT Screenwriters.id, idFilm, idPerson, Persons.fullName " +
@@ -147,13 +152,14 @@ namespace Office
 				if (dgvFilms.Rows.Count > 0 && dgvFilms.FirstDisplayedCell != null) { iFirstRow = dgvFilms.FirstDisplayedCell.RowIndex; }
 				Point cell = dgvFilms.CurrentCellAddress;
 
+				if (_dataSet.Relations.Contains("c")) { _dataSet.Relations.Remove("c"); }
 				if (_dataSet.Relations.Contains("d")) { _dataSet.Relations.Remove("d"); }
 				if (_dataSet.Relations.Contains("sw")) { _dataSet.Relations.Remove("sw"); }
 				if (_dataSet.Tables.Contains("Directors")) { _dataSet.Tables["Directors"].Clear(); }
 				if (_dataSet.Tables.Contains("Screenwriters")) { _dataSet.Tables["Screenwriters"].Clear(); }
 				if (_dataSet.Tables.Contains("FilmCompany")) { _dataSet.Tables["FilmCompany"].Clear(); }
 				if (_dataSet.Tables.Contains("Provider")) { _dataSet.Tables["Provider"].Clear(); }
-				if (_dataSet.Tables.Contains("Category")) { _dataSet.Tables["Category"].Clear(); }
+				if (_dataSet.Tables.Contains("Categories")) { _dataSet.Tables["Categories"].Clear(); }
 				if (_dataSet.Tables.Contains("Films")) { _dataSet.Tables["Films"].Clear(); }
 
 				connection.Open();
@@ -161,7 +167,7 @@ namespace Office
 				da.SelectCommand = new OleDbCommand(_queryFilms, connection);
 				da.Fill(_dataSet, "Films");
 				da.SelectCommand = new OleDbCommand(_queryCategories, connection);
-				da.Fill(_dataSet, "Category");
+				da.Fill(_dataSet, "Categories");
 				da.SelectCommand = new OleDbCommand(_queryProviders, connection);
 				da.Fill(_dataSet, "Provider");
 				da.SelectCommand = new OleDbCommand(_queryFilmCompanies, connection);
@@ -173,6 +179,7 @@ namespace Office
 
 				_dataSet.Relations.Add("sw", _dataSet.Tables["Films"].Columns["id"], _dataSet.Tables["Screenwriters"].Columns["idFilm"]);
 				_dataSet.Relations.Add("d", _dataSet.Tables["Films"].Columns["id"], _dataSet.Tables["Directors"].Columns["idFilm"]);
+				_dataSet.Relations.Add("c", _dataSet.Tables["Films"].Columns["id"], _dataSet.Tables["Categories"].Columns["idFilm"]);
 
 				_bsFilms.DataSource = _dataSet;
 				_bsFilms.DataMember = "Films";
@@ -180,6 +187,8 @@ namespace Office
 				_bsScreenwriters.DataMember = "sw";
 				_bsDirectors.DataSource = _bsFilms;
 				_bsDirectors.DataMember = "d";
+				_bsCategories.DataSource = _bsFilms;
+				_bsCategories.DataMember = "c";
 
 				if (iFirstRow > -1 && iFirstRow < dgvFilms.Rows.Count) { dgvFilms.FirstDisplayedScrollingRowIndex = iFirstRow; }
 				dgvFilms.MultiSelect = false;
@@ -230,28 +239,6 @@ namespace Office
 				catch (Exception ex)
 				{
 					MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				}
-			}
-		}
-
-		private void btnRefreshCategory_Click(object sender, EventArgs e)
-		{
-			using (OleDbConnection connection = new OleDbConnection(_connectionString))
-			{
-				connection.Open();
-				OleDbDataAdapter _dataAdapter = new OleDbDataAdapter(_queryCategories, connection);
-
-				int selectedIndex = cbxCategory.SelectedIndex;
-				var selectedValue = cbxCategory.SelectedValue;
-				_dataSet.Tables["Category"].Clear();
-				_dataAdapter.Fill(_dataSet, "Category");
-				if (selectedIndex != -1)
-				{
-					cbxCategory.SelectedValue = selectedValue;
-				}
-				else
-				{
-					cbxCategory.SelectedIndex = -1;
 				}
 			}
 		}
@@ -385,6 +372,24 @@ namespace Office
 			}
 		}
 
+		private void btnDelCategory_Click(object sender, EventArgs e)
+		{
+			using (OleDbConnection connection = new OleDbConnection(_connectionString))
+			{
+				string queryDelete = "DELETE FROM FilmGenres WHERE [id] = @id";
+
+				OleDbCommand cmd = new OleDbCommand(queryDelete, connection);
+				if (lstDirectors.SelectedIndex > -1)
+				{
+					cmd.Parameters.Add("@id", OleDbType.Integer).Value = lstCategories.SelectedValue;
+					connection.Open();
+					cmd.ExecuteNonQuery();
+					connection.Close();
+					ReloadData();
+				}
+			}
+		}
+
 		private void btnAddScreeneriter_Click(object sender, EventArgs e)
 		{
 			using (PersonForm f = new PersonForm(_connectionString))
@@ -417,6 +422,35 @@ namespace Office
 					cmd.Parameters.Add("@idFilm", OleDbType.Integer).Value = dgvFilms.CurrentRow.Cells[0].Value;
 					connection.Open();
 					cmd.ExecuteNonQuery();
+					connection.Close();
+					ReloadData();
+				}
+			}
+		}
+
+		private void btnAddCategory_Click(object sender, EventArgs e)
+		{
+			string s = "0";
+            foreach (DataRowView item in lstCategories.Items)
+            {
+				s += $",{(int)item.Row.ItemArray[2]}";
+            }
+
+            using (CategoryForm f = new CategoryForm(_connectionString, s))
+			{
+				if (f.ShowDialog(this) != DialogResult.OK) { return; }
+				using (OleDbConnection connection = new OleDbConnection(_connectionString))
+				{
+					string queryDelete = "INSERT INTO FilmGenres (idCategory, idFilm) VALUES (@idCategory, @idFilm)";
+					OleDbCommand cmd = new OleDbCommand(queryDelete, connection);
+					cmd.Parameters.Add("@idCategory", OleDbType.Integer).Value = 0;
+					cmd.Parameters.Add("@idFilm", OleDbType.Integer).Value = dgvFilms.CurrentRow.Cells[0].Value;
+					connection.Open();
+					foreach (int id in f.ids)
+					{
+						cmd.Parameters["@idCategory"].Value = id;
+						cmd.ExecuteNonQuery();
+					}
 					connection.Close();
 					ReloadData();
 				}
